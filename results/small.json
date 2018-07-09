@@ -1,0 +1,33 @@
+{
+  "value": "1",
+  "child": {
+    "value": "5",
+    "sibling": {
+      "value": "4",
+      "sibling": {
+        "value": "10",
+        "sibling": {
+          "value": "7",
+          "sibling": {
+            "value": "9",
+            "sibling": {
+              "value": "2",
+              "child": {
+                "value": "3",
+                "child": {
+                  "value": "6",
+                  "sibling": {
+                    "value": "8",
+                    "sibling": "to parent"
+                  }
+                },
+                "sibling": "to parent"
+              },
+              "sibling": "to parent"
+            }
+          }
+        }
+      }
+    }
+  }
+}
