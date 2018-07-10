@@ -80,8 +80,7 @@ Node<T>::Node(T i, Node<T> *c, Node<T> *s)
 template <class T>
 Node<T>::Node(const Node<T> &other) {
     cerr << "Node(const Node<T> &other)" << endl;
-    cerr << "TODO" << endl;
-    throw NotImplemented();
+    throw NotImplemented(); // TODO
 
     // _info = other._info;
     // hasSibling = other.hasSibling;
@@ -100,8 +99,7 @@ Node<T>::Node(const Node<T> &other) {
 template <class T>
 Node<T> &Node<T>::operator=(const Node<T> &other) {
     cerr << "operator=(const Node<T> &other)" << endl;
-    cerr << "TODO" << endl;
-    throw NotImplemented();
+    throw NotImplemented(); // TODO
     // Node<T> *n = new Node<T>(other._info, new Node<T>(other.child),
     //                          new Node<T>(other.sibling));
 

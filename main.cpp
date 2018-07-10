@@ -34,7 +34,11 @@ int main(int argc, char *argv[]) {
     }
     // cout << "]" << endl << "}";
 
-    cout << heap.toJSON() << endl;
+    // cout << heap.toJSON() << endl;
+
+    cout << heap.extractMin() << endl;
+    cout << heap.extractMin() << endl;
+    // while (!heap.isEmpty()) cout << heap.extractMin() << " " << endl;
 
     return 0;
 }

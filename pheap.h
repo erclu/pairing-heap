@@ -24,21 +24,33 @@ class PHeap {
    private:
     Node<T> *root;
 
+    void merge(PHeap<T> *other);
+    /* merge: compare the two root elements, the smaller remains the root of
+     * the result, the larger element and its subtree is appended as a child of
+     * this root.
+     * theta(1) */
+    static Node<T> *mergePairs(Node<T> *f);
+    /* auxiliary function for extracting min */
+
    public:
     PHeap() : root(NULL) { cerr << "PHeap()" << endl; }
     PHeap(T i) {
         cerr << "PHeap(T i) + ";
         root = new Node<T>(i);
     }
+    PHeap(Node<T> *r) : root(r) {
+        // should act as converter from Node<T> to PHeap<T>
+        cerr << "PHeap(Node<T> *r)" << endl;
+        root->hasSibling = false; // lazily forget siblings of root...
+    }
+
     PHeap(const PHeap<T> &other) {
         cerr << "PHeap(const PHeap<T> &other)" << endl;
-        cerr << "TODO" << endl;
-        throw NotImplemented();
+        throw NotImplemented(); // TODO
     }
     PHeap<T> &operator=(const PHeap<T> &other) {
         cerr << "operator=(const PHeap<T> &other)" << endl;
-        cerr << "TODO" << endl;
-        throw NotImplemented();
+        throw NotImplemented(); // TODO
     }
 
     ~PHeap() {
@@ -53,19 +65,13 @@ class PHeap {
     /* find min: return the top element of the heap.
      * theta(1) */
 
-    void merge(PHeap<T> *other);
-    /* merge: compare the two root elements, the smaller remains the root of
-     * the result, the larger element and its subtree is appended as a child of
-     * this root.
-     * theta(1) */
-
     void insert(T i);
     /* insert: create a new heap for the inserted element and merge into the
      * original heap.
      * theta(1) */
 
     T extractMin();
-    /* delete min: remove the root and merge its subtrees. Various strategies
+    /* extract min: remove the root and merge its subtrees. Various strategies
      * are employed.
      * O(log(n)) amortized */
 
@@ -138,8 +144,7 @@ T PHeap<T>::extractMin() {
 
 template <class T>
 void PHeap<T>::decreaseKey(Node<T> *n, T delta) {
-    cerr << "TODO" << endl;
-    throw NotImplemented();
+    throw NotImplemented(); // TODO
 }
 
 template <class T>
