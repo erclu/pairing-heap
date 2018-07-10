@@ -36,9 +36,8 @@ int main(int argc, char *argv[]) {
 
     // cout << heap.toJSON() << endl;
 
-    cout << heap.extractMin() << endl;
-    cout << heap.extractMin() << endl;
-    // while (!heap.isEmpty()) cout << heap.extractMin() << " " << endl;
+    // TODO: jsonify every step and checkit
+    while (!heap.isEmpty()) cout << heap.extractMin() << " " << endl;
 
     return 0;
 }

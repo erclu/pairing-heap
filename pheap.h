@@ -24,12 +24,12 @@ class PHeap {
    private:
     Node<T> *root;
 
-    void merge(PHeap<T> *other);
+    static Node<T> *merge(Node<T> *n1, Node<T> *n2);
     /* merge: compare the two root elements, the smaller remains the root of
      * the result, the larger element and its subtree is appended as a child of
      * this root.
      * theta(1) */
-    static Node<T> *mergePairs(Node<T> *f);
+    static Node<T> *mergePairs(Node<T> *first);
     /* auxiliary function for extracting min */
 
    public:
@@ -54,12 +54,19 @@ class PHeap {
     }
 
     ~PHeap() {
-        cerr << "~PHeap() + ";
-        delete root;
+        cerr << "~PHeap()";
+        if (isEmpty()) {
+            cout << endl;
+        } else {
+            cout << " + ";
+            delete root;
+        }
     }
 
-    bool isEmpty() const { return root == NULL; }
+    friend std::ostream &operator<<<T>(std::ostream &os, const PHeap<T> &n);
     string toJSON() const { return root->toJSON(); }
+
+    bool isEmpty() const { return root == NULL; }
 
     T findMin() const;
     /* find min: return the top element of the heap.
@@ -80,9 +87,62 @@ class PHeap {
      * decreased, replace the key with a smaller key, then merge the result
      * back into the heap.
      * o(log(n)) amortized */
-
-    friend std::ostream &operator<<<T>(std::ostream &os, const PHeap<T> &n);
 };
+
+template <class T>
+Node<T> *PHeap<T>::merge(Node<T> *n1, Node<T> *n2) {
+    if (!n1) return n2;
+    if (!n2) return n1;
+
+    // pointers for nodes with smaller and larger value
+    Node<T> *smaller, *larger;
+
+    if (n1->info() <= n2->info()) {
+        smaller = n1;
+        larger = n2;
+    } else {
+        smaller = n2;
+        larger = n1;
+    }
+
+    // pheap root nodes never have siblings ????
+    larger->sibling = smaller->child;
+    if (larger->sibling) {
+        larger->hasSibling = true;
+    } else {
+        larger->hasSibling = false;
+        larger->sibling = smaller;
+    }
+    smaller->child = larger;
+    larger = 0; // empty other heap; ??????
+    return smaller;
+}
+
+// PRE: first è un nodo ben formato e non nullo;
+template <class T>
+Node<T> *PHeap<T>::mergePairs(Node<T> *first) {
+    if (!first) return 0;
+    if (!first->hasSibling) return first;
+    Node<T> *second = first->sibling;
+    first->sibling = 0;
+    first->hasSibling = false;
+
+    Node<T> *remaining = 0;
+    if (second->hasSibling) {
+        remaining = second->sibling;
+        second->sibling = 0;
+        second->hasSibling = false;
+    }
+
+    return merge(merge(first, second), mergePairs(remaining));
+}
+
+// ------------------- PUBLIC -------------------
+template <class T>
+std::ostream &operator<<(std::ostream &os, const PHeap<T> &n) {
+    os << n.root;
+    return os;
+}
 
 template <class T>
 T PHeap<T>::findMin() const {
@@ -92,65 +152,31 @@ T PHeap<T>::findMin() const {
         return root->info();
 }
 
-// friend this?
-template <class T>
-void PHeap<T>::merge(PHeap<T> *other) {
-    if (other->isEmpty()) return;
-
-    if (isEmpty()) {
-        root = other->root;
-        other->root = 0; // empty other heap;
-    } else {
-        // pointers for heap with smaller and larger root value
-        Node<T> *smaller, *larger;
-
-        if (root->info() <= other->root->info()) {
-            smaller = root;
-            larger = other->root;
-        } else {
-            smaller = other->root;
-            larger = root;
-        }
-
-        // pheap root nodes never have siblings!!
-        larger->sibling = smaller->child;
-        if (larger->sibling) {
-            larger->hasSibling = true;
-        } else {
-            larger->hasSibling = false;
-            larger->sibling = smaller;
-        }
-        smaller->child = larger;
-        larger = 0; // empty other heap; ??????
-
-        if (root != smaller) root = smaller;
-    }
-}
-
 template <class T>
 void PHeap<T>::insert(T i) {
-    PHeap<T> *other = new PHeap<T>(i);
+    Node<T> *other = new Node<T>(i);
 
-    merge(other);
+    root = merge(root, other);
 }
 
 template <class T>
 T PHeap<T>::extractMin() {
-    cerr << "TODO" << endl;
-    throw NotImplemented();
-
     if (isEmpty()) throw std::out_of_range("extractMin() on empty heap");
+
+    T min = findMin();
+
+    Node<T> *tmp = root->child;
+    root->child = 0;
+    delete root;
+
+    root = mergePairs(tmp);
+
+    return min;
 }
 
 template <class T>
 void PHeap<T>::decreaseKey(Node<T> *n, T delta) {
     throw NotImplemented(); // TODO
-}
-
-template <class T>
-std::ostream &operator<<(std::ostream &os, const PHeap<T> &n) {
-    os << n.root;
-    return os;
 }
 
 #endif
