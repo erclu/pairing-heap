@@ -1,33 +1,453 @@
 {
-  "value": "1",
-  "child": {
-    "value": "5",
-    "sibling": {
-      "value": "4",
-      "sibling": {
-        "value": "10",
-        "sibling": {
-          "value": "7",
-          "sibling": {
-            "value": "9",
-            "sibling": {
-              "value": "2",
-              "child": {
-                "value": "3",
-                "child": {
-                  "value": "6",
-                  "sibling": {
-                    "value": "8",
-                    "sibling": "to parent"
-                  }
-                },
-                "sibling": "to parent"
-              },
-              "sibling": "to parent"
-            }
-          }
+  "n": 10,
+  "steps": [
+    {
+      "value": "8"
+    },
+    {
+      "value": "3",
+      "children": [
+        {
+          "value": "8"
         }
-      }
+      ]
+    },
+    {
+      "value": "3",
+      "children": [
+        {
+          "value": "6"
+        },
+        {
+          "value": "8"
+        }
+      ]
+    },
+    {
+      "value": "2",
+      "children": [
+        {
+          "value": "3",
+          "children": [
+            {
+              "value": "6"
+            },
+            {
+              "value": "8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "1",
+      "children": [
+        {
+          "value": "2",
+          "children": [
+            {
+              "value": "3",
+              "children": [
+                {
+                  "value": "6"
+                },
+                {
+                  "value": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "1",
+      "children": [
+        {
+          "value": "9"
+        },
+        {
+          "value": "2",
+          "children": [
+            {
+              "value": "3",
+              "children": [
+                {
+                  "value": "6"
+                },
+                {
+                  "value": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "1",
+      "children": [
+        {
+          "value": "7"
+        },
+        {
+          "value": "9"
+        },
+        {
+          "value": "2",
+          "children": [
+            {
+              "value": "3",
+              "children": [
+                {
+                  "value": "6"
+                },
+                {
+                  "value": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "1",
+      "children": [
+        {
+          "value": "10"
+        },
+        {
+          "value": "7"
+        },
+        {
+          "value": "9"
+        },
+        {
+          "value": "2",
+          "children": [
+            {
+              "value": "3",
+              "children": [
+                {
+                  "value": "6"
+                },
+                {
+                  "value": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "1",
+      "children": [
+        {
+          "value": "4"
+        },
+        {
+          "value": "10"
+        },
+        {
+          "value": "7"
+        },
+        {
+          "value": "9"
+        },
+        {
+          "value": "2",
+          "children": [
+            {
+              "value": "3",
+              "children": [
+                {
+                  "value": "6"
+                },
+                {
+                  "value": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "1",
+      "children": [
+        {
+          "value": "5"
+        },
+        {
+          "value": "4"
+        },
+        {
+          "value": "10"
+        },
+        {
+          "value": "7"
+        },
+        {
+          "value": "9"
+        },
+        {
+          "value": "2",
+          "children": [
+            {
+              "value": "3",
+              "children": [
+                {
+                  "value": "6"
+                },
+                {
+                  "value": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
-  }
+  ],
+  "extraction steps": [
+    {
+      "pheap": {
+        "value": "1",
+        "children": [
+          {
+            "value": "5"
+          },
+          {
+            "value": "4"
+          },
+          {
+            "value": "10"
+          },
+          {
+            "value": "7"
+          },
+          {
+            "value": "9"
+          },
+          {
+            "value": "2",
+            "children": [
+              {
+                "value": "3",
+                "children": [
+                  {
+                    "value": "6"
+                  },
+                  {
+                    "value": "8"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "extracted": "1"
+    },
+    {
+      "pheap": {
+        "value": "2",
+        "children": [
+          {
+            "value": "4",
+            "children": [
+              {
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "value": "7",
+            "children": [
+              {
+                "value": "10"
+              }
+            ]
+          },
+          {
+            "value": "9"
+          },
+          {
+            "value": "3",
+            "children": [
+              {
+                "value": "6"
+              },
+              {
+                "value": "8"
+              }
+            ]
+          }
+        ]
+      },
+      "extracted": "2"
+    },
+    {
+      "pheap": {
+        "value": "3",
+        "children": [
+          {
+            "value": "4",
+            "children": [
+              {
+                "value": "7",
+                "children": [
+                  {
+                    "value": "10"
+                  }
+                ]
+              },
+              {
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "value": "9"
+          },
+          {
+            "value": "6"
+          },
+          {
+            "value": "8"
+          }
+        ]
+      },
+      "extracted": "3"
+    },
+    {
+      "pheap": {
+        "value": "4",
+        "children": [
+          {
+            "value": "6",
+            "children": [
+              {
+                "value": "8"
+              }
+            ]
+          },
+          {
+            "value": "9"
+          },
+          {
+            "value": "7",
+            "children": [
+              {
+                "value": "10"
+              }
+            ]
+          },
+          {
+            "value": "5"
+          }
+        ]
+      },
+      "extracted": "4"
+    },
+    {
+      "pheap": {
+        "value": "5",
+        "children": [
+          {
+            "value": "6",
+            "children": [
+              {
+                "value": "9"
+              },
+              {
+                "value": "8"
+              }
+            ]
+          },
+          {
+            "value": "7",
+            "children": [
+              {
+                "value": "10"
+              }
+            ]
+          }
+        ]
+      },
+      "extracted": "5"
+    },
+    {
+      "pheap": {
+        "value": "6",
+        "children": [
+          {
+            "value": "7",
+            "children": [
+              {
+                "value": "10"
+              }
+            ]
+          },
+          {
+            "value": "9"
+          },
+          {
+            "value": "8"
+          }
+        ]
+      },
+      "extracted": "6"
+    },
+    {
+      "pheap": {
+        "value": "7",
+        "children": [
+          {
+            "value": "8"
+          },
+          {
+            "value": "9"
+          },
+          {
+            "value": "10"
+          }
+        ]
+      },
+      "extracted": "7"
+    },
+    {
+      "pheap": {
+        "value": "8",
+        "children": [
+          {
+            "value": "10"
+          },
+          {
+            "value": "9"
+          }
+        ]
+      },
+      "extracted": "8"
+    },
+    {
+      "pheap": {
+        "value": "9",
+        "children": [
+          {
+            "value": "10"
+          }
+        ]
+      },
+      "extracted": "9"
+    },
+    {
+      "pheap": {
+        "value": "10"
+      },
+      "extracted": "10"
+    }
+  ]
 }
