@@ -11,7 +11,6 @@ using std::cerr;
 // using std::cin;
 using std::cout;
 using std::endl;
-using std::string;
 
 template <class T = int>
 class PHeap;
@@ -34,37 +33,16 @@ class PHeap {
 
    public:
     PHeap() : root(NULL) { cerr << "PHeap()" << endl; }
-    PHeap(T i) {
-        cerr << "PHeap(T i) + ";
-        root = new Node<T>(i);
-    }
-    PHeap(Node<T> *r) : root(r) {
-        // should act as converter from Node<T> to PHeap<T>
-        cerr << "PHeap(Node<T> *r)" << endl;
-        root->hasSibling = false; // lazily forget siblings of root...
-    }
+    PHeap(T i);
+    PHeap(Node<T> *r);
+    PHeap(const PHeap<T> &other);
+    PHeap<T> &operator=(const PHeap<T> &other);
 
-    PHeap(const PHeap<T> &other) {
-        cerr << "PHeap(const PHeap<T> &other)" << endl;
-        throw NotImplemented(); // TODO
-    }
-    PHeap<T> &operator=(const PHeap<T> &other) {
-        cerr << "operator=(const PHeap<T> &other)" << endl;
-        throw NotImplemented(); // TODO
-    }
-
-    ~PHeap() {
-        cerr << "~PHeap()";
-        if (isEmpty()) {
-            cout << endl;
-        } else {
-            cout << " + ";
-            delete root;
-        }
-    }
+    ~PHeap();
 
     friend std::ostream &operator<<<T>(std::ostream &os, const PHeap<T> &n);
-    string toJSON() const { return root->toJSON(); }
+    std::string toJson(size_t indent = 0) const;
+    std::string toLeveledJson(size_t indent = 0) const;
 
     bool isEmpty() const { return root == NULL; }
 
@@ -123,6 +101,7 @@ template <class T>
 Node<T> *PHeap<T>::mergePairs(Node<T> *first) {
     if (!first) return 0;
     if (!first->hasSibling) return first;
+
     Node<T> *second = first->sibling;
     first->sibling = 0;
     first->hasSibling = false;
@@ -133,15 +112,75 @@ Node<T> *PHeap<T>::mergePairs(Node<T> *first) {
         second->sibling = 0;
         second->hasSibling = false;
     }
+    Node<T> *pair = merge(first, second);
 
-    return merge(merge(first, second), mergePairs(remaining));
+    return merge(pair, mergePairs(remaining));
 }
 
 // ------------------- PUBLIC -------------------
+
+template <class T>
+PHeap<T>::PHeap(T i) {
+    cerr << "PHeap(T i) + ";
+    root = new Node<T>(i);
+}
+
+template <class T>
+PHeap<T>::PHeap(Node<T> *r) : root(r) {
+    // should act as converter from Node<T> to PHeap<T>
+    cerr << "PHeap(Node<T> *r)" << endl;
+    // TODO: check if it works without this
+    root->hasSibling = false; // lazily forget siblings of root...
+}
+
+template <class T>
+PHeap<T>::PHeap(const PHeap<T> &other) {
+    cerr << "PHeap(const PHeap<T> &other)" << endl;
+
+    root = new Node<T>(other.root);
+}
+
+template <class T>
+PHeap<T> &PHeap<T>::operator=(const PHeap<T> &other) {
+    cerr << "operator=(const PHeap<T> &other)" << endl;
+
+    if (this == &other) return *this;
+
+    PHeap<T> *n = new PHeap(other);
+    return *n;
+}
+
+template <class T>
+PHeap<T>::~PHeap() {
+    cerr << "~PHeap()";
+    if (isEmpty()) {
+        cerr << endl;
+    } else {
+        cerr << " + ";
+        delete root;
+    }
+}
+
 template <class T>
 std::ostream &operator<<(std::ostream &os, const PHeap<T> &n) {
     os << n.root;
     return os;
+}
+
+template <class T>
+std::string PHeap<T>::toJson(size_t indent) const {
+    if (isEmpty())
+        throw std::out_of_range("toJson() on empty pheap");
+    else
+        return root->toJson(indent);
+}
+
+template <class T>
+std::string PHeap<T>::toLeveledJson(size_t indent) const {
+    if (isEmpty())
+        throw std::out_of_range("toLeveledJson() on empty pheap");
+    else
+        return root->toLeveledJson(indent);
 }
 
 template <class T>
