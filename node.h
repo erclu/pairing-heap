@@ -31,6 +31,7 @@ class Node {
     Node *child, *sibling;
     // sibling is the null pointer if and only if that node is a root;
     bool hasSibling;
+    bool hasValidParent() const;
 
     Node(T i = T(), Node<T> *c = 0, Node<T> *s = 0);
 

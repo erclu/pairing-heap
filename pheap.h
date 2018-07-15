@@ -44,6 +44,7 @@ class PHeap {
     friend std::ostream &operator<<<T>(std::ostream &os, const PHeap<T> &n);
     std::string toJson(size_t indent = 0) const;
     std::string toLeveledJson(size_t indent = 0) const;
+    std::string toMinifiedLeveledJson() const;
 
     bool isEmpty() const { return root == NULL; }
 

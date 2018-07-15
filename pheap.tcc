@@ -73,17 +73,22 @@ template <class T>
 PHeap<T>::PHeap(const PHeap<T> &other) {
     cerr << "PHeap(const PHeap<T> &other)" << endl;
 
-    root = new Node<T>(other.root);
+    root = new Node<T>(*other.root);
+    // TODO: parent pointers???
 }
 
 template <class T>
 PHeap<T> &PHeap<T>::operator=(const PHeap<T> &other) {
     cerr << "operator=(const PHeap<T> &other)" << endl;
 
-    if (this == &other) return *this;
+    if (this != &other) {
+        cerr << "|------" << endl;
+        delete root;
+        root = new Node<T>(*other.root);
+        cerr << "------|" << endl;
+    }
 
-    PHeap<T> *n = new PHeap(other);
-    return *n;
+    return *this;
 }
 
 template <class T>
@@ -116,6 +121,14 @@ std::string PHeap<T>::toLeveledJson(size_t indent) const {
         throw std::out_of_range("toLeveledJson() on empty pheap");
     else
         return root->toLeveledJson(indent);
+}
+
+template <class T>
+std::string PHeap<T>::toMinifiedLeveledJson() const {
+    if (isEmpty())
+        throw std::out_of_range("toMinifiedLeveledJson() on empty pheap");
+    else
+        return root->toMinifiedLeveledJson();
 }
 
 template <class T>

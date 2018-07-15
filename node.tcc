@@ -19,19 +19,38 @@ Node<T>::Node(const Node<T> &other)
     : _info(other._info), child(0), sibling(0), hasSibling(other.hasSibling) {
     cerr << "Node(const Node<T> &other)" << endl;
 
-    if (other.child) child = new Node<T>(other.child);
-    if (other.sibling) sibling = new Node<T>(other.sibling);
-} // TODO: check if copy constructor & assignment work
+    if (other.child) child = new Node<T>(*other.child);
+    if (other.sibling && hasSibling)
+        sibling = new Node<T>(*other.sibling); // check parents?
+}
 
 template <class T>
 Node<T> &Node<T>::operator=(const Node<T> &other) {
     cerr << "operator=(const Node<T> &other)" << endl;
+    throw NotImplemented();
 
-    if (this == &other) return *this;
 
-    Node<T> *n = new Node<T>(other);
-    return *n;
-} // TODO: check if copy constructor & assignment work
+template <class T>
+Node<T>::~Node() {
+    cerr << "~Node()" << endl;
+    delete child;
+
+    if (hasSibling) delete sibling;
+}
+
+template <class T>
+bool Node<T>::hasValidParent() const {
+    // TODO finish this and make function to check every node...
+    if (!sibling) return false;
+
+    Node<T> *n = this->parent()->child; // go to the first sibling
+
+    while (n != this && hasSibling) n = n->sibling;
+
+    if (n == this) return true;
+
+    return false;
+}
 
 template <class T>
 Node<T> *Node<T>::parent() {

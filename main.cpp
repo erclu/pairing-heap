@@ -6,37 +6,40 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+void trackFillAndEmptyMinified();
+
 // todo: smart pointers for nodes..
-// TODO: check if copy constructor & assignment work
+int main(int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
-    PHeap<> heap;
-    int n, temp;
-    cin >> n;
 
-    cout << "{" << endl
-         << "  \"n\": " << n << "," << endl
-         << "  \"steps\": [" << endl;
+    trackFillAndEmptyMinified();
+    return 0;
+}
+
+void trackFillAndEmptyMinified() {
+    int n;
+    cin >> n;
+    PHeap<> heap;
+    int temp;
+
+    cout << "{\"n\":" << n << ",\"steps\":[" << endl;
 
     while (n-- > 0) {
         cin >> temp;
         heap.insert(temp);
-        cout << heap.toLeveledJson(4);
+        cout << heap.toMinifiedLeveledJson();
         if (n > 0) cout << ",";
         cout << endl;
     }
 
-    cout << "  ]," << endl << "  \"extraction steps\": [ ";
+    cout << "],\"extraction steps\":[";
 
     while (!heap.isEmpty()) {
-        cout << "{" << endl
-             << "      \"pheap\": " << endl
-             << heap.toLeveledJson(6) << "," << endl;
-        cout << "      \"extracted\": \"" << heap.extractMin() << "\"" << endl
-             << "}";
+        cout << "{\"pheap\":" << heap.toMinifiedLeveledJson() << ","
+             << "\"extracted\":\"" << heap.extractMin() << "\"}";
         if (!heap.isEmpty()) cout << ",";
         cout << endl;
     }
-    cout << "  ]" << endl << "}";
-    return 0;
+    cout << "]}";
 }
