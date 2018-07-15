@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-std=c++11
-DEPS=pheap.h node.h
+DEPS=pheap.h pheap.tcc node.h node.tcc
 OBJS=main.o
 TARGET=_main.out
 

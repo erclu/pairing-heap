@@ -4,7 +4,7 @@ Node<T> *PHeap<T>::merge(Node<T> *n1, Node<T> *n2) {
     if (!n1) return n2;
     if (!n2) return n1;
 
-    // pointers for nodes with smaller and larger value
+    // pointers for nodes with smaller and larger _info
     Node<T> *smaller, *larger;
 
     if (n1->info() <= n2->info()) {
@@ -25,6 +25,11 @@ Node<T> *PHeap<T>::merge(Node<T> *n1, Node<T> *n2) {
     smaller->child = larger;
     larger = 0; // empty other heap; ??????
     return smaller;
+}
+
+template <class T>
+Node<T> *PHeap<T>::merge(PHeap<T> *p1, PHeap<T> *p2) {
+    return merge(p1->root, p2->root);
 }
 
 // PRE: first è un nodo ben formato e non nullo;
@@ -83,12 +88,11 @@ PHeap<T> &PHeap<T>::operator=(const PHeap<T> &other) {
 
 template <class T>
 PHeap<T>::~PHeap() {
-    cerr << "~PHeap()";
-    if (isEmpty()) {
-        cerr << endl;
-    } else {
-        cerr << " + ";
+    cerr << "~PHeap()" << endl;
+    if (!isEmpty()) {
+        cerr << "|------" << endl;
         delete root;
+        cerr << "------|" << endl;
     }
 }
 
@@ -144,7 +148,28 @@ T PHeap<T>::extractMin() {
     return min;
 }
 
+// PRE: delta > 0;
 template <class T>
-void PHeap<T>::decreaseKey(Node<T> *n, T delta) {
-    throw NotImplemented(); // TODO
+void PHeap<T>::decreaseKey(Node<T> *&n, T delta) {
+    // TODO: check if decreasekey is correct
+
+    Node<T> *decreased = new Node<T>(n->info() - delta, n->child);
+    if (n == root) return;
+
+    n = n->sibling;
+    // if (n->hasSibling) { // useless????
+    //     n = n->sibling;
+    // } else {
+    //     Node<T> *previous = n->parent()->child;
+
+    //     if (previous == n) { // if n is the first child..
+    //         previous = 0;
+    //     } else {
+    //         while (previous->sibling != n) previous = previous->sibling;
+
+    //         previous->sibling = n->sibling;
+    //     }
+    // }
+
+    root = merge(root, decreased);
 }

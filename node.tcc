@@ -1,22 +1,3 @@
-
-template <class T>
-Node<T>::Node() : _info(), child(0), sibling(0), hasSibling(false) {
-    cerr << "Node()" << endl;
-}
-
-template <class T>
-Node<T>::Node(T i) : _info(i), child(0), sibling(0), hasSibling(false) {
-    cerr << "Node(T i), i is: " << i << endl;
-}
-
-template <class T>
-Node<T>::~Node() {
-    cerr << "~Node()" << endl;
-    delete child;
-
-    if (hasSibling) delete sibling;
-}
-
 template <class T>
 Node<T>::Node(T i, Node<T> *c, Node<T> *s) : _info(i), child(c), sibling(s) {
     cerr << "Node(T i, Node<T> *c, Node<T> *s), i is " << i << endl;
@@ -53,12 +34,12 @@ Node<T> &Node<T>::operator=(const Node<T> &other) {
 } // TODO: check if copy constructor & assignment work
 
 template <class T>
-Node<T> *&Node<T>::parent() {
+Node<T> *Node<T>::parent() {
+    if (!sibling) return 0;
+
     Node<T> *n = this;
-    do {
-        n = n->sibling;
-    } while (n->hasSibling);
-    return n;
+    while (n->hasSibling) n = n->sibling;
+    return n->sibling;
 }
 
 template <class T>
@@ -87,19 +68,16 @@ std::string Node<T>::toJson(size_t indent) const {
 
     ss << std::string(indent, ' ') << "{" << endl;
     indent += JSON_INDENT_SIZE;
-    ss << std::string(indent, ' ') << "\"value\": \"" << _info << "\"";
+    ss << std::string(indent, ' ') << "\"info\": \"" << _info << "\"";
     if (child) {
         ss << "," << endl;
         ss << std::string(indent, ' ')
            << "\"child\": " << child->toJson(indent);
     }
-    if (sibling) {
+    if (hasSibling) {
         ss << "," << endl;
-        ss << std::string(indent, ' ') << "\"sibling\": ";
-        if (hasSibling)
-            ss << sibling->toJson(indent);
-        else
-            ss << "\"to parent\"";
+        ss << std::string(indent, ' ')
+           << "\"sibling\": " << sibling->toJson(indent);
     }
     ss << endl;
     indent -= JSON_INDENT_SIZE;
@@ -114,7 +92,7 @@ std::string Node<T>::toLeveledJson(size_t indent) const {
 
     ss << std::string(indent, ' ') << "{" << endl;
     indent += JSON_INDENT_SIZE;
-    ss << std::string(indent, ' ') << "\"value\": \"" << _info << "\"";
+    ss << std::string(indent, ' ') << "\"info\": \"" << _info << "\"";
     if (child) {
         ss << "," << endl;
         ss << std::string(indent, ' ') << "\"children\": [" << endl;
@@ -140,7 +118,7 @@ std::string Node<T>::toMinifiedLeveledJson() const {
     std::stringstream ss;
 
     ss << "{"
-       << "\"value\":\"" << _info << "\"";
+       << "\"info\":\"" << _info << "\"";
     if (child)
         ss << ","
            << "\"children\":[" << child->toMinifiedLeveledJson() << "]";

@@ -24,6 +24,7 @@ class PHeap {
     Node<T> *root;
 
     static Node<T> *merge(Node<T> *n1, Node<T> *n2);
+    static Node<T> *merge(PHeap<T> *p1, PHeap<T> *p2);
     /* merge: compare the two root elements, the smaller remains the root of
      * the result, the larger element and its subtree is appended as a child of
      * this root.
@@ -60,7 +61,7 @@ class PHeap {
      * are employed.
      * O(log(n)) amortized */
 
-    void decreaseKey(Node<T> *n, T delta);
+    void decreaseKey(Node<T> *&n, T delta);
     /* decrease key (optional): remove the subtree rooted at the key to be
      * decreased, replace the key with a smaller key, then merge the result
      * back into the heap.

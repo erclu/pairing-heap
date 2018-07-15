@@ -32,9 +32,7 @@ class Node {
     // sibling is the null pointer if and only if that node is a root;
     bool hasSibling;
 
-    Node();
-    Node(T i);
-    Node(T i, Node<T> *c, Node<T> *s = 0);
+    Node(T i = T(), Node<T> *c = 0, Node<T> *s = 0);
 
     Node(const Node &other);
     Node<T> &operator=(const Node<T> &other);
@@ -42,7 +40,7 @@ class Node {
     ~Node();
 
     const T info() const { return _info; }
-    Node<T> *&parent();
+    Node<T> *parent();
 
     friend std::ostream &operator<<<T>(std::ostream &os, const Node<T> &n);
 
