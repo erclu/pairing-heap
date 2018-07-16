@@ -2,33 +2,50 @@ template <class T>
 Node<T>::Node(T i, Node<T> *c, Node<T> *s) : _info(i), child(c), sibling(s) {
     cerr << "Node(T i, Node<T> *c, Node<T> *s), i is " << i << endl;
 
+    if (child) child->parent() = this;
+
     if (sibling)
         hasSibling = true;
     else
         hasSibling = false;
-
-    if (child) {
-        Node<T> *n = child;
-        while (n->hasSibling) n = n->sibling;
-        n->sibling = this;
-    }
 }
 
 template <class T>
 Node<T>::Node(const Node<T> &other)
-    : _info(other._info), child(0), sibling(0), hasSibling(other.hasSibling) {
+    : _info(other._info),
+      child(nullptr),
+      sibling(nullptr),
+      hasSibling(other.hasSibling) {
     cerr << "Node(const Node<T> &other)" << endl;
 
-    if (other.child) child = new Node<T>(*other.child);
-    if (other.sibling && hasSibling)
-        sibling = new Node<T>(*other.sibling); // check parents?
+    if (other.child) {
+        child = new Node<T>(*other.child);
+        child->parent() = this;
+    }
+
+    if (other.sibling && hasSibling) sibling = new Node<T>(*other.sibling);
 }
 
 template <class T>
 Node<T> &Node<T>::operator=(const Node<T> &other) {
     cerr << "operator=(const Node<T> &other)" << endl;
-    throw NotImplemented();
 
+    if (this != &other) {
+        cerr << "|------" << endl;
+        _info = other._info;
+
+        delete child;
+        if (other.child) child = new Node<T>(*other.child);
+        child->parent() = this;
+
+        if (hasSibling) delete sibling;
+        hasSibling = other.hasSibling;
+        if (other.hasSibling) sibling = new Node<T>(*other.sibling);
+
+        cerr << "------|" << endl;
+    }
+    return *this;
+}
 
 template <class T>
 Node<T>::~Node() {
@@ -40,21 +57,32 @@ Node<T>::~Node() {
 
 template <class T>
 bool Node<T>::hasValidParent() const {
-    // TODO finish this and make function to check every node...
+    // TODO is this necessary?
     if (!sibling) return false;
 
     Node<T> *n = this->parent()->child; // go to the first sibling
 
     while (n != this && hasSibling) n = n->sibling;
 
-    if (n == this) return true;
-
-    return false;
+    return n == this;
 }
 
 template <class T>
-Node<T> *Node<T>::parent() {
-    if (!sibling) return 0;
+bool Node<T>::hasValidChilds() const {
+    if (!child) return true;
+
+    if (!child->hasSibling) return child->sibling == this;
+
+    return child->hasValidChilds() && child->sibling->hasValidChilds();
+}
+
+template <class T>
+Node<T> *&Node<T>::parent() {
+    // "this" must point to a valid object???
+    if (!sibling) { // TODO: what happens if this has no sibling?
+        cerr << "parent() on a root node" << endl;
+        return sibling;
+    }
 
     Node<T> *n = this;
     while (n->hasSibling) n = n->sibling;
@@ -136,8 +164,7 @@ template <class T>
 std::string Node<T>::toMinifiedLeveledJson() const {
     std::stringstream ss;
 
-    ss << "{"
-       << "\"info\":\"" << _info << "\"";
+    ss << "{\"info\":\"" << _info << "\"";
     if (child)
         ss << ","
            << "\"children\":[" << child->toMinifiedLeveledJson() << "]";

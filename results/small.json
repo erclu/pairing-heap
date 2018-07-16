@@ -2,57 +2,57 @@
   "n": 10,
   "steps": [
     {
-      "value": "8"
+      "info": "8"
     },
     {
-      "value": "3",
+      "info": "3",
       "children": [
         {
-          "value": "8"
+          "info": "8"
         }
       ]
     },
     {
-      "value": "3",
+      "info": "3",
       "children": [
         {
-          "value": "6"
+          "info": "6"
         },
         {
-          "value": "8"
+          "info": "8"
         }
       ]
     },
     {
-      "value": "2",
+      "info": "2",
       "children": [
         {
-          "value": "3",
+          "info": "3",
           "children": [
             {
-              "value": "6"
+              "info": "6"
             },
             {
-              "value": "8"
+              "info": "8"
             }
           ]
         }
       ]
     },
     {
-      "value": "1",
+      "info": "1",
       "children": [
         {
-          "value": "2",
+          "info": "2",
           "children": [
             {
-              "value": "3",
+              "info": "3",
               "children": [
                 {
-                  "value": "6"
+                  "info": "6"
                 },
                 {
-                  "value": "8"
+                  "info": "8"
                 }
               ]
             }
@@ -61,22 +61,22 @@
       ]
     },
     {
-      "value": "1",
+      "info": "1",
       "children": [
         {
-          "value": "9"
+          "info": "9"
         },
         {
-          "value": "2",
+          "info": "2",
           "children": [
             {
-              "value": "3",
+              "info": "3",
               "children": [
                 {
-                  "value": "6"
+                  "info": "6"
                 },
                 {
-                  "value": "8"
+                  "info": "8"
                 }
               ]
             }
@@ -85,25 +85,25 @@
       ]
     },
     {
-      "value": "1",
+      "info": "1",
       "children": [
         {
-          "value": "7"
+          "info": "7"
         },
         {
-          "value": "9"
+          "info": "9"
         },
         {
-          "value": "2",
+          "info": "2",
           "children": [
             {
-              "value": "3",
+              "info": "3",
               "children": [
                 {
-                  "value": "6"
+                  "info": "6"
                 },
                 {
-                  "value": "8"
+                  "info": "8"
                 }
               ]
             }
@@ -112,28 +112,28 @@
       ]
     },
     {
-      "value": "1",
+      "info": "1",
       "children": [
         {
-          "value": "10"
+          "info": "10"
         },
         {
-          "value": "7"
+          "info": "7"
         },
         {
-          "value": "9"
+          "info": "9"
         },
         {
-          "value": "2",
+          "info": "2",
           "children": [
             {
-              "value": "3",
+              "info": "3",
               "children": [
                 {
-                  "value": "6"
+                  "info": "6"
                 },
                 {
-                  "value": "8"
+                  "info": "8"
                 }
               ]
             }
@@ -142,31 +142,31 @@
       ]
     },
     {
-      "value": "1",
+      "info": "1",
       "children": [
         {
-          "value": "4"
+          "info": "4"
         },
         {
-          "value": "10"
+          "info": "10"
         },
         {
-          "value": "7"
+          "info": "7"
         },
         {
-          "value": "9"
+          "info": "9"
         },
         {
-          "value": "2",
+          "info": "2",
           "children": [
             {
-              "value": "3",
+              "info": "3",
               "children": [
                 {
-                  "value": "6"
+                  "info": "6"
                 },
                 {
-                  "value": "8"
+                  "info": "8"
                 }
               ]
             }
@@ -175,34 +175,34 @@
       ]
     },
     {
-      "value": "1",
+      "info": "1",
       "children": [
         {
-          "value": "5"
+          "info": "5"
         },
         {
-          "value": "4"
+          "info": "4"
         },
         {
-          "value": "10"
+          "info": "10"
         },
         {
-          "value": "7"
+          "info": "7"
         },
         {
-          "value": "9"
+          "info": "9"
         },
         {
-          "value": "2",
+          "info": "2",
           "children": [
             {
-              "value": "3",
+              "info": "3",
               "children": [
                 {
-                  "value": "6"
+                  "info": "6"
                 },
                 {
-                  "value": "8"
+                  "info": "8"
                 }
               ]
             }
@@ -214,34 +214,34 @@
   "extraction steps": [
     {
       "pheap": {
-        "value": "1",
+        "info": "1",
         "children": [
           {
-            "value": "5"
+            "info": "5"
           },
           {
-            "value": "4"
+            "info": "4"
           },
           {
-            "value": "10"
+            "info": "10"
           },
           {
-            "value": "7"
+            "info": "7"
           },
           {
-            "value": "9"
+            "info": "9"
           },
           {
-            "value": "2",
+            "info": "2",
             "children": [
               {
-                "value": "3",
+                "info": "3",
                 "children": [
                   {
-                    "value": "6"
+                    "info": "6"
                   },
                   {
-                    "value": "8"
+                    "info": "8"
                   }
                 ]
               }
@@ -253,35 +253,35 @@
     },
     {
       "pheap": {
-        "value": "2",
+        "info": "2",
         "children": [
           {
-            "value": "4",
+            "info": "4",
             "children": [
               {
-                "value": "5"
+                "info": "5"
               }
             ]
           },
           {
-            "value": "7",
+            "info": "7",
             "children": [
               {
-                "value": "10"
+                "info": "10"
               }
             ]
           },
           {
-            "value": "9"
+            "info": "9"
           },
           {
-            "value": "3",
+            "info": "3",
             "children": [
               {
-                "value": "6"
+                "info": "6"
               },
               {
-                "value": "8"
+                "info": "8"
               }
             ]
           }
@@ -291,32 +291,32 @@
     },
     {
       "pheap": {
-        "value": "3",
+        "info": "3",
         "children": [
           {
-            "value": "4",
+            "info": "4",
             "children": [
               {
-                "value": "7",
+                "info": "7",
                 "children": [
                   {
-                    "value": "10"
+                    "info": "10"
                   }
                 ]
               },
               {
-                "value": "5"
+                "info": "5"
               }
             ]
           },
           {
-            "value": "9"
+            "info": "9"
           },
           {
-            "value": "6"
+            "info": "6"
           },
           {
-            "value": "8"
+            "info": "8"
           }
         ]
       },
@@ -324,29 +324,29 @@
     },
     {
       "pheap": {
-        "value": "4",
+        "info": "4",
         "children": [
           {
-            "value": "6",
+            "info": "6",
             "children": [
               {
-                "value": "8"
+                "info": "8"
               }
             ]
           },
           {
-            "value": "9"
+            "info": "9"
           },
           {
-            "value": "7",
+            "info": "7",
             "children": [
               {
-                "value": "10"
+                "info": "10"
               }
             ]
           },
           {
-            "value": "5"
+            "info": "5"
           }
         ]
       },
@@ -354,24 +354,24 @@
     },
     {
       "pheap": {
-        "value": "5",
+        "info": "5",
         "children": [
           {
-            "value": "6",
+            "info": "6",
             "children": [
               {
-                "value": "9"
+                "info": "9"
               },
               {
-                "value": "8"
+                "info": "8"
               }
             ]
           },
           {
-            "value": "7",
+            "info": "7",
             "children": [
               {
-                "value": "10"
+                "info": "10"
               }
             ]
           }
@@ -381,21 +381,21 @@
     },
     {
       "pheap": {
-        "value": "6",
+        "info": "6",
         "children": [
           {
-            "value": "7",
+            "info": "7",
             "children": [
               {
-                "value": "10"
+                "info": "10"
               }
             ]
           },
           {
-            "value": "9"
+            "info": "9"
           },
           {
-            "value": "8"
+            "info": "8"
           }
         ]
       },
@@ -403,16 +403,16 @@
     },
     {
       "pheap": {
-        "value": "7",
+        "info": "7",
         "children": [
           {
-            "value": "8"
+            "info": "8"
           },
           {
-            "value": "9"
+            "info": "9"
           },
           {
-            "value": "10"
+            "info": "10"
           }
         ]
       },
@@ -420,13 +420,13 @@
     },
     {
       "pheap": {
-        "value": "8",
+        "info": "8",
         "children": [
           {
-            "value": "10"
+            "info": "10"
           },
           {
-            "value": "9"
+            "info": "9"
           }
         ]
       },
@@ -434,10 +434,10 @@
     },
     {
       "pheap": {
-        "value": "9",
+        "info": "9",
         "children": [
           {
-            "value": "10"
+            "info": "10"
           }
         ]
       },
@@ -445,7 +445,7 @@
     },
     {
       "pheap": {
-        "value": "10"
+        "info": "10"
       },
       "extracted": "10"
     }

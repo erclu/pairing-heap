@@ -23,7 +23,7 @@ Node<T> *PHeap<T>::merge(Node<T> *n1, Node<T> *n2) {
         larger->sibling = smaller;
     }
     smaller->child = larger;
-    larger = 0; // empty other heap; ??????
+    larger = nullptr; // empty other heap; ??????
     return smaller;
 }
 
@@ -35,17 +35,17 @@ Node<T> *PHeap<T>::merge(PHeap<T> *p1, PHeap<T> *p2) {
 // PRE: first è un nodo ben formato e non nullo;
 template <class T>
 Node<T> *PHeap<T>::mergePairs(Node<T> *first) {
-    if (!first) return 0;
+    if (!first) return nullptr;
     if (!first->hasSibling) return first;
 
     Node<T> *second = first->sibling;
-    first->sibling = 0;
+    first->sibling = nullptr;
     first->hasSibling = false;
 
-    Node<T> *remaining = 0;
+    Node<T> *remaining = nullptr;
     if (second->hasSibling) {
         remaining = second->sibling;
-        second->sibling = 0;
+        second->sibling = nullptr;
         second->hasSibling = false;
     }
     Node<T> *pair = merge(first, second);
@@ -74,7 +74,6 @@ PHeap<T>::PHeap(const PHeap<T> &other) {
     cerr << "PHeap(const PHeap<T> &other)" << endl;
 
     root = new Node<T>(*other.root);
-    // TODO: parent pointers???
 }
 
 template <class T>
@@ -103,7 +102,7 @@ PHeap<T>::~PHeap() {
 
 template <class T>
 std::ostream &operator<<(std::ostream &os, const PHeap<T> &n) {
-    os << n.root;
+    os << *n.root;
     return os;
 }
 
@@ -132,6 +131,14 @@ std::string PHeap<T>::toMinifiedLeveledJson() const {
 }
 
 template <class T>
+bool PHeap<T>::isValid() const {
+    if (isEmpty())
+        return true;
+    else
+        return root->hasValidChilds();
+}
+
+template <class T>
 T PHeap<T>::findMin() const {
     if (isEmpty())
         throw std::out_of_range("findMin() on empty pheap");
@@ -147,13 +154,13 @@ void PHeap<T>::insert(T i) {
 }
 
 template <class T>
-T PHeap<T>::extractMin() {
-    if (isEmpty()) throw std::out_of_range("extractMin() on empty heap");
+T PHeap<T>::removeMin() {
+    if (isEmpty()) throw std::out_of_range("removeMin() on empty heap");
 
     T min = findMin();
 
     Node<T> *tmp = root->child;
-    root->child = 0;
+    root->child = nullptr;
     delete root;
 
     root = mergePairs(tmp);
@@ -176,7 +183,7 @@ void PHeap<T>::decreaseKey(Node<T> *&n, T delta) {
     //     Node<T> *previous = n->parent()->child;
 
     //     if (previous == n) { // if n is the first child..
-    //         previous = 0;
+    //         previous = nullptr;
     //     } else {
     //         while (previous->sibling != n) previous = previous->sibling;
 

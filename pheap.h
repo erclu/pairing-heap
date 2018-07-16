@@ -38,15 +38,10 @@ class PHeap {
     PHeap(Node<T> *r);
     PHeap(const PHeap<T> &other);
     PHeap<T> &operator=(const PHeap<T> &other);
-
     ~PHeap();
 
-    friend std::ostream &operator<<<T>(std::ostream &os, const PHeap<T> &n);
-    std::string toJson(size_t indent = 0) const;
-    std::string toLeveledJson(size_t indent = 0) const;
-    std::string toMinifiedLeveledJson() const;
-
     bool isEmpty() const { return root == NULL; }
+    bool isValid() const;
 
     T findMin() const;
     /* find min: return the top element of the heap.
@@ -57,16 +52,23 @@ class PHeap {
      * original heap.
      * theta(1) */
 
-    T extractMin();
+    T removeMin();
     /* extract min: remove the root and merge its subtrees. Various strategies
      * are employed.
      * O(log(n)) amortized */
 
+    // void decreaseKey(T value, T delta);
     void decreaseKey(Node<T> *&n, T delta);
     /* decrease key (optional): remove the subtree rooted at the key to be
      * decreased, replace the key with a smaller key, then merge the result
      * back into the heap.
+     * lower bound omega(log(log(n))), upper O(2^(2*sqrt(log(log(n)))))
      * o(log(n)) amortized */
+
+    friend std::ostream &operator<<<T>(std::ostream &os, const PHeap<T> &n);
+    std::string toJson(size_t indent = 0) const;
+    std::string toLeveledJson(size_t indent = 0) const;
+    std::string toMinifiedLeveledJson() const;
 };
 
 #include "pheap.tcc"

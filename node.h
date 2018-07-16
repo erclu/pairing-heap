@@ -31,23 +31,22 @@ class Node {
     Node *child, *sibling;
     // sibling is the null pointer if and only if that node is a root;
     bool hasSibling;
-    bool hasValidParent() const;
 
-    Node(T i = T(), Node<T> *c = 0, Node<T> *s = 0);
-
+    Node(T i = T(), Node<T> *c = nullptr, Node<T> *s = nullptr);
     Node(const Node &other);
     Node<T> &operator=(const Node<T> &other);
-
     ~Node();
 
-    const T info() const { return _info; }
-    Node<T> *parent();
+    bool hasValidParent() const;
+    bool hasValidChilds() const;
 
     friend std::ostream &operator<<<T>(std::ostream &os, const Node<T> &n);
-
     std::string toJson(size_t indent = 0) const;
     std::string toLeveledJson(size_t indent = 0) const;
     std::string toMinifiedLeveledJson() const;
+
+    const T info() const { return _info; }
+    Node<T> *&parent();
 };
 
 #include "node.tcc"
