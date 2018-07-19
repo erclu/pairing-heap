@@ -33,15 +33,9 @@ class PHeap {
     /* auxiliary function for extracting min */
     static Node<T> *mergePairs(Node<T> *first);
 
-    friend void checkPHeapCopyConstructorAndAssignment();
-    PHeap(const PHeap<T> &other);
-    PHeap<T> &operator=(const PHeap<T> &other);
-
    public:
     PHeap() : root(NULL) { cerr << "PHeap()" << endl; }
-    // PHeap(T i);
     PHeap(Node<T> *r);
-
     ~PHeap();
 
     bool isEmpty() const { return root == NULL; }

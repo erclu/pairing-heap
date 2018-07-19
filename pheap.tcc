@@ -55,39 +55,12 @@ Node<T> *PHeap<T>::mergePairs(Node<T> *first) {
 
 // ------------------- PUBLIC -------------------
 
-// template <class T>
-// PHeap<T>::PHeap(T i) {
-//     cerr << "PHeap(T i) + ";
-//     root = new Node<T>(i);
-// }
-
 template <class T>
 PHeap<T>::PHeap(Node<T> *r) : root(r) {
     // should act as converter from Node<T> to PHeap<T>
     cerr << "PHeap(Node<T> *r)" << endl;
     // TODO: check if it works without this
     root->hasSibling = false; // lazily forget siblings of root...
-}
-
-template <class T>
-PHeap<T>::PHeap(const PHeap<T> &other) {
-    cerr << "PHeap(const PHeap<T> &other)" << endl;
-
-    root = new Node<T>(*other.root);
-}
-
-template <class T>
-PHeap<T> &PHeap<T>::operator=(const PHeap<T> &other) {
-    cerr << "operator=(const PHeap<T> &other)" << endl;
-
-    if (this != &other) {
-        cerr << "|-------------------------------" << endl;
-        delete root;
-        root = new Node<T>(*other.root);
-        cerr << "-------------------------------|" << endl;
-    }
-
-    return *this;
 }
 
 template <class T>
@@ -98,36 +71,6 @@ PHeap<T>::~PHeap() {
         delete root;
         cerr << "------|" << endl;
     }
-}
-
-template <class T>
-std::ostream &operator<<(std::ostream &os, const PHeap<T> &n) {
-    os << *n.root;
-    return os;
-}
-
-template <class T>
-std::string PHeap<T>::toJson(unsigned int indent) const {
-    if (isEmpty())
-        throw std::out_of_range("toJson() on empty pheap");
-    else
-        return root->toJson(indent);
-}
-
-template <class T>
-std::string PHeap<T>::toLeveledJson(unsigned int indent) const {
-    if (isEmpty())
-        throw std::out_of_range("toLeveledJson() on empty pheap");
-    else
-        return root->toLeveledJson(indent);
-}
-
-template <class T>
-std::string PHeap<T>::toMinifiedLeveledJson() const {
-    if (isEmpty())
-        throw std::out_of_range("toMinifiedLeveledJson() on empty pheap");
-    else
-        return root->toMinifiedLeveledJson();
 }
 
 template <class T>
@@ -194,4 +137,37 @@ void PHeap<T>::decreaseKey(Node<T> *&n, T delta) {
     // }
 
     root = merge(root, decreased);
+}
+
+template <class T>
+void PHeap<T>::decreaseKey(T value, T delta) {} // todo
+
+template <class T>
+std::ostream &operator<<(std::ostream &os, const PHeap<T> &n) {
+    os << *n.root;
+    return os;
+}
+
+template <class T>
+std::string PHeap<T>::toJson(unsigned int indent) const {
+    if (isEmpty())
+        throw std::out_of_range("toJson() on empty pheap");
+    else
+        return root->toJson(indent);
+}
+
+template <class T>
+std::string PHeap<T>::toLeveledJson(unsigned int indent) const {
+    if (isEmpty())
+        throw std::out_of_range("toLeveledJson() on empty pheap");
+    else
+        return root->toLeveledJson(indent);
+}
+
+template <class T>
+std::string PHeap<T>::toMinifiedLeveledJson() const {
+    if (isEmpty())
+        throw std::out_of_range("toMinifiedLeveledJson() on empty pheap");
+    else
+        return root->toMinifiedLeveledJson();
 }

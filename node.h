@@ -9,8 +9,6 @@
 #define JSON_INDENT_SIZE 2
 
 using std::cerr;
-// using std::cin;
-using std::cout;
 using std::endl;
 
 template <class T = int>
@@ -37,8 +35,7 @@ class Node {
     bool hasValidChilds() const;
 
    public:
-    // TODO: new constructor with only basic stuff
-    Node(T i = T(), Node<T> *c = nullptr, Node<T> *s = nullptr);
+    Node(T i = T());
     ~Node();
 
     friend std::ostream &operator<<<T>(std::ostream &os, const Node<T> &n);

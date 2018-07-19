@@ -1,81 +1,4 @@
 // TODO: reorder methods in file...
-
-template <class T>
-Node<T>::Node(T i, Node<T> *c, Node<T> *s)
-    : _info(i), child(c), sibling(s), hasSibling(static_cast<bool>(s)) {
-    cerr << "Node(T i, Node<T> *c, Node<T> *s), _info is " << _info << endl;
-
-    if (child) child->parent() = this;
-}
-
-template <class T>
-Node<T>::Node(const Node<T> &other)
-    : _info(other._info),
-      child(nullptr),
-      sibling(nullptr),
-      hasSibling(other.hasSibling) {
-    cerr << "Node(const Node<T> &other), _info is " << _info << endl;
-
-    if (other.child) {
-        child = new Node<T>(*other.child);
-        child->parent() = this;
-    }
-
-    if (other.sibling && hasSibling) sibling = new Node<T>(*other.sibling);
-}
-
-template <class T>
-Node<T> &Node<T>::operator=(const Node<T> &other) {
-    cerr << "operator=(const Node<T> &other)" << endl;
-
-    if (this != &other) {
-        cerr << "|------------------------------" << endl;
-        _info = other._info;
-
-        delete child;
-        if (other.child) child = new Node<T>(*other.child);
-        child->parent() = this;
-
-        if (hasSibling) delete sibling;
-        hasSibling = other.hasSibling;
-        if (other.hasSibling) sibling = new Node<T>(*other.sibling);
-
-        cerr << "------------------------------|" << endl;
-    }
-    return *this;
-}
-
-template <class T>
-Node<T>::~Node() {
-    cerr << "~Node()" << endl;
-    delete child;
-
-    if (hasSibling) delete sibling;
-}
-
-template <class T>
-bool Node<T>::hasValidParent() const {
-    if (!hasSibling && !sibling) {
-        cerr << "hasValidParent() on a root node, info is " << _info << endl;
-        return false;
-    }
-
-    Node<T> *n = this->parent()->child; // go to the first sibling
-
-    while (n != this && hasSibling) n = n->sibling;
-
-    return n == this;
-}
-
-template <class T>
-bool Node<T>::hasValidChilds() const {
-    if (!child) return true;
-
-    if (!child->hasSibling) return child->sibling == this;
-
-    return child->hasValidChilds() && child->sibling->hasValidChilds();
-}
-
 template <class T>
 Node<T> *&Node<T>::parent() {
     if (!sibling) { // TODO check why it's sometimes called on root nodes...
@@ -92,19 +15,28 @@ Node<T> *&Node<T>::parent() {
     return n->sibling;
 }
 
-// template <class T> Node<T> *&Node<T>::previous() {//TODO: check if it works
-//     if (!sibling) { // TODO: what happens if this has no sibling?
-//         cerr << "previous() on a root node, info is " << _info << endl;
-//         return sibling;
-//     }
+template <class T>
+bool Node<T>::hasValidChilds() const {
+    if (!child) return true;
 
-//     if (parent()->child == this) return nullptr;
+    if (!child->hasSibling) return child->sibling == this;
 
-//     Node<T> *n = parent()->child;
-//     while (n->sibling != this) n = n->sibling;
+    return child->hasValidChilds() && child->sibling->hasValidChilds();
+}
 
-//     return n;
-// }
+template <class T>
+Node<T>::Node(T i)
+    : _info(i), child(nullptr), sibling(nullptr), hasSibling(false) {
+    cerr << "Node(T i), _info is " << _info << endl;
+}
+
+template <class T>
+Node<T>::~Node() {
+    cerr << "~Node()" << endl;
+    delete child;
+
+    if (hasSibling) delete sibling;
+}
 
 template <class T>
 std::ostream &operator<<(std::ostream &os, const Node<T> &n) {

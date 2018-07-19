@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "pheap.h"
-// TODO: finish eliminating non essentials
+// TODO: have i removed non essentials?
 
 using std::cin;
 using std::cout;
