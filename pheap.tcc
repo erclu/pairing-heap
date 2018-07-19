@@ -7,7 +7,7 @@ Node<T> *PHeap<T>::merge(Node<T> *n1, Node<T> *n2) {
     // pointers for nodes with smaller and larger _info
     Node<T> *smaller, *larger;
 
-    if (n1->info() <= n2->info()) {
+    if (n1->_info <= n2->_info) {
         smaller = n1;
         larger = n2;
     } else {
@@ -55,11 +55,11 @@ Node<T> *PHeap<T>::mergePairs(Node<T> *first) {
 
 // ------------------- PUBLIC -------------------
 
-template <class T>
-PHeap<T>::PHeap(T i) {
-    cerr << "PHeap(T i) + ";
-    root = new Node<T>(i);
-}
+// template <class T>
+// PHeap<T>::PHeap(T i) {
+//     cerr << "PHeap(T i) + ";
+//     root = new Node<T>(i);
+// }
 
 template <class T>
 PHeap<T>::PHeap(Node<T> *r) : root(r) {
@@ -81,10 +81,10 @@ PHeap<T> &PHeap<T>::operator=(const PHeap<T> &other) {
     cerr << "operator=(const PHeap<T> &other)" << endl;
 
     if (this != &other) {
-        cerr << "|------" << endl;
+        cerr << "|-------------------------------" << endl;
         delete root;
         root = new Node<T>(*other.root);
-        cerr << "------|" << endl;
+        cerr << "-------------------------------|" << endl;
     }
 
     return *this;
@@ -107,7 +107,7 @@ std::ostream &operator<<(std::ostream &os, const PHeap<T> &n) {
 }
 
 template <class T>
-std::string PHeap<T>::toJson(size_t indent) const {
+std::string PHeap<T>::toJson(unsigned int indent) const {
     if (isEmpty())
         throw std::out_of_range("toJson() on empty pheap");
     else
@@ -115,7 +115,7 @@ std::string PHeap<T>::toJson(size_t indent) const {
 }
 
 template <class T>
-std::string PHeap<T>::toLeveledJson(size_t indent) const {
+std::string PHeap<T>::toLeveledJson(unsigned int indent) const {
     if (isEmpty())
         throw std::out_of_range("toLeveledJson() on empty pheap");
     else
@@ -143,7 +143,7 @@ T PHeap<T>::findMin() const {
     if (isEmpty())
         throw std::out_of_range("findMin() on empty pheap");
     else
-        return root->info();
+        return root->_info;
 }
 
 template <class T>
@@ -168,15 +168,17 @@ T PHeap<T>::removeMin() {
     return min;
 }
 
+// todo: findkey...
+
 // PRE: delta > 0;
 template <class T>
 void PHeap<T>::decreaseKey(Node<T> *&n, T delta) {
-    // TODO: check if decreasekey is correct
+    // todo: check if decreasekey is correct
 
-    Node<T> *decreased = new Node<T>(n->info() - delta, n->child);
+    Node<T> *decreased = new Node<T>(n->_info - delta, n->child);
     if (n == root) return;
 
-    n = n->sibling;
+    n = n->sibling; // need to modify hasSibling in previous node!
     // if (n->hasSibling) { // useless????
     //     n = n->sibling;
     // } else {

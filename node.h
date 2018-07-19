@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <iostream>
+#include <iostream> //necessary?
 #include <sstream>
 
 #include "not_implemented.h"
@@ -13,8 +13,8 @@ using std::cerr;
 using std::cout;
 using std::endl;
 
-// template <class T = int>
-// class PHeap;
+template <class T = int>
+class PHeap;
 
 template <class T = int>
 class Node;
@@ -24,29 +24,35 @@ std::ostream &operator<<(std::ostream &os, const Node<T> &n);
 
 template <class T>
 class Node {
+    friend class PHeap<T>;
+    friend void checkNodeCopyConstructorAndAssignment();
+
    private:
     T _info;
-
-   public:
     Node *child, *sibling;
     // sibling is the null pointer if and only if that node is a root;
     bool hasSibling;
 
-    Node(T i = T(), Node<T> *c = nullptr, Node<T> *s = nullptr);
-    Node(const Node &other);
-    Node<T> &operator=(const Node<T> &other);
-    ~Node();
+    Node<T> *&parent();
+    // Node<T> *&previous();
 
     bool hasValidParent() const;
     bool hasValidChilds() const;
 
+    Node(const Node &other);
+    Node<T> &operator=(const Node<T> &other);
+
+   public:
+    // TODO: new constructor with only basic stuff
+    Node(T i = T(), Node<T> *c = nullptr, Node<T> *s = nullptr);
+    ~Node();
+
     friend std::ostream &operator<<<T>(std::ostream &os, const Node<T> &n);
-    std::string toJson(size_t indent = 0) const;
-    std::string toLeveledJson(size_t indent = 0) const;
+    std::string toJson(unsigned int indent = 0) const;
+    std::string toLeveledJson(unsigned int indent = 0) const;
     std::string toMinifiedLeveledJson() const;
 
     const T info() const { return _info; }
-    Node<T> *&parent();
 };
 
 #include "node.tcc"

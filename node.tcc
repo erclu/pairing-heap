@@ -1,13 +1,11 @@
+// TODO: reorder methods in file...
+
 template <class T>
-Node<T>::Node(T i, Node<T> *c, Node<T> *s) : _info(i), child(c), sibling(s) {
-    cerr << "Node(T i, Node<T> *c, Node<T> *s), i is " << i << endl;
+Node<T>::Node(T i, Node<T> *c, Node<T> *s)
+    : _info(i), child(c), sibling(s), hasSibling(static_cast<bool>(s)) {
+    cerr << "Node(T i, Node<T> *c, Node<T> *s), _info is " << _info << endl;
 
     if (child) child->parent() = this;
-
-    if (sibling)
-        hasSibling = true;
-    else
-        hasSibling = false;
 }
 
 template <class T>
@@ -16,7 +14,7 @@ Node<T>::Node(const Node<T> &other)
       child(nullptr),
       sibling(nullptr),
       hasSibling(other.hasSibling) {
-    cerr << "Node(const Node<T> &other)" << endl;
+    cerr << "Node(const Node<T> &other), _info is " << _info << endl;
 
     if (other.child) {
         child = new Node<T>(*other.child);
@@ -31,7 +29,7 @@ Node<T> &Node<T>::operator=(const Node<T> &other) {
     cerr << "operator=(const Node<T> &other)" << endl;
 
     if (this != &other) {
-        cerr << "|------" << endl;
+        cerr << "|------------------------------" << endl;
         _info = other._info;
 
         delete child;
@@ -42,7 +40,7 @@ Node<T> &Node<T>::operator=(const Node<T> &other) {
         hasSibling = other.hasSibling;
         if (other.hasSibling) sibling = new Node<T>(*other.sibling);
 
-        cerr << "------|" << endl;
+        cerr << "------------------------------|" << endl;
     }
     return *this;
 }
@@ -57,8 +55,10 @@ Node<T>::~Node() {
 
 template <class T>
 bool Node<T>::hasValidParent() const {
-    // TODO is this necessary?
-    if (!sibling) return false;
+    if (!hasSibling && !sibling) {
+        cerr << "hasValidParent() on a root node, info is " << _info << endl;
+        return false;
+    }
 
     Node<T> *n = this->parent()->child; // go to the first sibling
 
@@ -78,27 +78,44 @@ bool Node<T>::hasValidChilds() const {
 
 template <class T>
 Node<T> *&Node<T>::parent() {
-    // "this" must point to a valid object???
-    if (!sibling) { // TODO: what happens if this has no sibling?
-        cerr << "parent() on a root node" << endl;
+    if (!sibling) { // TODO check why it's sometimes called on root nodes...
+        cerr << "parent() on a root node, info is " << _info << endl;
         return sibling;
+        // it should be able to set the correct parent in an unfinished node..
     }
+
+    // if (!hasSibling) return sibling;
+    // return sibling->parent(); // TODO: check if recursive version works...
 
     Node<T> *n = this;
     while (n->hasSibling) n = n->sibling;
     return n->sibling;
 }
 
+// template <class T> Node<T> *&Node<T>::previous() {//TODO: check if it works
+//     if (!sibling) { // TODO: what happens if this has no sibling?
+//         cerr << "previous() on a root node, info is " << _info << endl;
+//         return sibling;
+//     }
+
+//     if (parent()->child == this) return nullptr;
+
+//     Node<T> *n = parent()->child;
+//     while (n->sibling != this) n = n->sibling;
+
+//     return n;
+// }
+
 template <class T>
 std::ostream &operator<<(std::ostream &os, const Node<T> &n) {
-    os << n._info << "(|";
+    os << n._info << "(";
 
     if (n.child)
         os << *(n.child);
     else
         os << "_";
 
-    os << ",-";
+    os << ",";
 
     if (n.hasSibling)
         os << *(n.sibling);
@@ -110,7 +127,7 @@ std::ostream &operator<<(std::ostream &os, const Node<T> &n) {
 }
 
 template <class T>
-std::string Node<T>::toJson(size_t indent) const {
+std::string Node<T>::toJson(unsigned int indent) const {
     std::stringstream ss;
 
     ss << std::string(indent, ' ') << "{" << endl;
@@ -134,7 +151,7 @@ std::string Node<T>::toJson(size_t indent) const {
 }
 
 template <class T>
-std::string Node<T>::toLeveledJson(size_t indent) const {
+std::string Node<T>::toLeveledJson(unsigned int indent) const {
     std::stringstream ss;
 
     ss << std::string(indent, ' ') << "{" << endl;

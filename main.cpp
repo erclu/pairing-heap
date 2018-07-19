@@ -6,15 +6,18 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-void trackFillAndEmptyMinified();
 void checkNodeCopyConstructorAndAssignment();
-void checkPHeapCopyConstructorAndAssignment(std::istream &is);
+void checkPHeapCopyConstructorAndAssignment();
+void decreaseSomeKeys();
+void trackFillAndEmptyMinified();
 
-// todo: smart pointers for nodes..
+// todo: smart pointers for nodes?
 int main(int argc, char *argv[]) {
-    checkPHeapCopyConstructorAndAssignment(cin);
-
     checkNodeCopyConstructorAndAssignment();
+
+    checkPHeapCopyConstructorAndAssignment();
+
+    // decreaseSomeKeys();
 
     // trackFillAndEmptyMinified();
 
@@ -22,6 +25,7 @@ int main(int argc, char *argv[]) {
 }
 
 void checkNodeCopyConstructorAndAssignment() {
+    cerr << "---checkNodeCopyConstructorAndAssignment()---" << endl;
     //    1
     //   2  3
     //  6  4 5
@@ -34,7 +38,8 @@ void checkNodeCopyConstructorAndAssignment() {
     Node<> n3;
     n3 = n1;
 
-    cout << "---Parent pointers validation---" << endl
+    cout << endl
+         << "---Parent pointers validation---" << endl
          << "n1 valid: " << n1.hasValidChilds() << endl
          << "n2 valid: " << n2.hasValidChilds() << endl
          << "n3 valid: " << n3.hasValidChilds() << endl
@@ -47,16 +52,24 @@ void checkNodeCopyConstructorAndAssignment() {
     //      << "---------------------------------" << endl;
 }
 
-void checkPHeapCopyConstructorAndAssignment(std::istream &is) {
-    int temp;
+void checkPHeapCopyConstructorAndAssignment() {
+    cerr << "---checkPHeapCopyConstructorAndAssignment()--" << endl;
+
+    int array[5] = {3, 2, 4, 1, 5};
     PHeap<> heap1;
-    while (is >> temp) heap1.insert(temp);
+    for (int i = 0; i < 5; i++) heap1.insert(array[i]);
+    //  1
+    // 5  2
+    //   4 3
+
+    cout << heap1 << endl;
 
     PHeap<> heap2 = heap1;
     PHeap<> heap3;
     heap3 = heap1;
 
-    cout << "---Parent pointers validation---" << endl
+    cout << endl
+         << "---Parent pointers validation---" << endl
          << "heap1 valid: " << heap1.isValid() << endl
          << "heap2 valid: " << heap2.isValid() << endl
          << "heap3 valid: " << heap3.isValid() << endl
@@ -97,3 +110,5 @@ void trackFillAndEmptyMinified() {
     }
     cout << "]}";
 }
+
+void decreaseSomeKeys() {}
