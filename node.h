@@ -25,7 +25,6 @@ std::ostream &operator<<(std::ostream &os, const Node<T> &n);
 template <class T>
 class Node {
     friend class PHeap<T>;
-    friend void checkNodeCopyConstructorAndAssignment();
 
    private:
     T _info;
@@ -34,13 +33,8 @@ class Node {
     bool hasSibling;
 
     Node<T> *&parent();
-    // Node<T> *&previous();
 
-    bool hasValidParent() const;
     bool hasValidChilds() const;
-
-    Node(const Node &other);
-    Node<T> &operator=(const Node<T> &other);
 
    public:
     // TODO: new constructor with only basic stuff
