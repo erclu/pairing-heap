@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "pheap.h"
+#include "pheap.hpp"
 // TODO: have i removed non essentials?
 
 using std::cin;

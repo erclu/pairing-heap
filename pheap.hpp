@@ -2,17 +2,17 @@
 #define PHEAP_H
 
 #include <iostream> //necessary?
-#include <stdexcept>
+// #include <stdexcept>
 
-#include "Node.h"
-#include "not_implemented.h"
+#include "Node.hpp"
+#include "not_implemented.hpp"
 
 using std::cerr;
 // using std::cin;
 using std::cout;
 using std::endl;
 
-template <class T>
+template <class T> // public inherit from node? make data protected...
 class PHeap;
 
 template <class T>
@@ -72,7 +72,5 @@ class PHeap {
     std::string toLeveledJson(unsigned int indent = 0) const;
     std::string toMinifiedLeveledJson() const;
 };
-
-#include "pheap.tcc"
 
 #endif

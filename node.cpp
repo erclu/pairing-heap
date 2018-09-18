@@ -1,4 +1,7 @@
+#include "node.hpp"
+
 // TODO: reorder methods in file...
+
 template <class T>
 Node<T> *&Node<T>::parent() {
     if (!sibling) { // TODO check why it's sometimes called on root nodes...
@@ -123,3 +126,6 @@ std::string Node<T>::toMinifiedLeveledJson() const {
 
     return ss.str();
 }
+
+// instantiated templates:
+template class Node<int>;

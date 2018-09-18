@@ -1,3 +1,4 @@
+#include "pheap.hpp"
 
 template <class T>
 Node<T> *PHeap<T>::merge(Node<T> *n1, Node<T> *n2) {
@@ -118,7 +119,9 @@ template <class T>
 void PHeap<T>::decreaseKey(Node<T> *&n, T delta) {
     // todo: check if decreasekey is correct
 
-    Node<T> *decreased = new Node<T>(n->_info - delta, n->child);
+    Node<T> *decreased = new Node<T>(n->_info - delta);
+    decreased->child = n->child;
+
     if (n == root) return;
 
     n = n->sibling; // need to modify hasSibling in previous node!
@@ -171,3 +174,6 @@ std::string PHeap<T>::toMinifiedLeveledJson() const {
     else
         return root->toMinifiedLeveledJson();
 }
+
+// instantiated templates:
+template class PHeap<int>;

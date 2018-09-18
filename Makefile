@@ -1,17 +1,13 @@
 CXX=g++
-CXXFLAGS=-std=c++11
-DEPS=pheap.h pheap.tcc node.h node.tcc
-OBJS=main.o
-TARGET=_main.out
+CXXFLAGS=-Wall -std=c++11
+HDRS=pheap.hpp node.hpp
+OBJS=main.o pheap.o node.o
 
-all: $(DEPS) $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+all: $(HDRS) $(OBJS)
+	$(CXX) $(CXXFLAGS) -o _main.out $(OBJS)
 
-# node: node.h
-# 	$(CXX) $(CXXFLAGS) -c -o node.o node.h
-
-%.o: %.cpp $(DEPS)
+%.o: %.cpp %.hpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm -vf $(OBJS) $(TARGET) 
+	rm -vf *.o *.out

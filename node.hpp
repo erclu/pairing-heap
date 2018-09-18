@@ -4,7 +4,7 @@
 #include <iostream> //necessary?
 #include <sstream>
 
-#include "not_implemented.h"
+#include "not_implemented.hpp"
 
 #define JSON_INDENT_SIZE 2
 
@@ -45,7 +45,5 @@ class Node {
 
     const T info() const { return _info; }
 };
-
-#include "node.tcc"
 
 #endif
