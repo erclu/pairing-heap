@@ -2,6 +2,9 @@
 
 // TODO: reorder methods in file...
 
+using std::cerr;
+using std::endl;
+
 template <class T>
 Node<T> *&Node<T>::parent() {
     if (!sibling) { // TODO check why it's sometimes called on root nodes...
@@ -129,3 +132,4 @@ std::string Node<T>::toMinifiedLeveledJson() const {
 
 // instantiated templates:
 template class Node<int>;
+// TODO does this actually work? does it instantiate methods?

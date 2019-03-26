@@ -1,5 +1,8 @@
 #include "pheap.hpp"
 
+using std::cerr;
+using std::endl;
+
 template <class T>
 Node<T> *PHeap<T>::merge(Node<T> *n1, Node<T> *n2) {
     if (!n1) return n2;
@@ -177,3 +180,4 @@ std::string PHeap<T>::toMinifiedLeveledJson() const {
 
 // instantiated templates:
 template class PHeap<int>;
+// TODO does this actually work? does it instantiate methods?

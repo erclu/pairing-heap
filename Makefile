@@ -7,7 +7,7 @@ all: $(HDRS) $(OBJS)
 	$(CXX) $(CXXFLAGS) -o _main.out $(OBJS)
 
 %.o: %.cpp %.hpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 clean:
 	rm -vf *.o *.out

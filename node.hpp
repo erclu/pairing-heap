@@ -8,9 +8,6 @@
 
 #define JSON_INDENT_SIZE 2
 
-using std::cerr;
-using std::endl;
-
 template <class T = int>
 class PHeap;
 

@@ -1,6 +1,9 @@
+# vs code files
 .vscode
-.clang-format
 *.code-workspace
+
+# C++ files
+.clang-format
 *.o
 *.out
 stderr.txt

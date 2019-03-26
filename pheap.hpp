@@ -7,11 +7,6 @@
 #include "Node.hpp"
 #include "not_implemented.hpp"
 
-using std::cerr;
-// using std::cin;
-using std::cout;
-using std::endl;
-
 template <class T> // public inherit from node? make data protected...
 class PHeap;
 
@@ -34,7 +29,7 @@ class PHeap {
     static Node<T> *mergePairs(Node<T> *first);
 
    public:
-    PHeap() : root(NULL) { cerr << "PHeap()" << endl; }
+    PHeap() : root(NULL) { std::cerr << "PHeap()" << std::endl; }
     PHeap(Node<T> *r);
     ~PHeap();
 
